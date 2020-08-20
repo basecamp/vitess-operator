@@ -124,8 +124,9 @@ func externalDatastoreFlags(spec *Spec) vitess.Flags {
 		"db_port":                  spec.ExternalDatastore.Port,
 		"init_db_name_override":    spec.ExternalDatastore.Database,
 
-		// TODO: Should this be configurable?
-		"enable_replication_reporter": true,
+		// Disabled to fix rdonly tablets on RDS.
+		// TODO: This should be configurable, fix later for https://github.com/planetscale/vitess-operator/issues/121
+		"enable_replication_reporter": false,
 
 		"enforce_strict_trans_tables": false,
 		"vreplication_tablet_type":    vreplicationTabletType,
