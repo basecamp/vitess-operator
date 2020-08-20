@@ -130,6 +130,10 @@ func externalDatastoreFlags(spec *Spec) vitess.Flags {
 
 		"enforce_strict_trans_tables": false,
 		"vreplication_tablet_type":    vreplicationTabletType,
+
+		// Bumped from 5s to keep from OOM'ing RDS. It'll still OOM, just slower ;)
+		// TODO: This should be configurable, fix later for https://github.com/planetscale/vitess-operator/issues/122
+		"vreplication_retry_delay": "30s",
 	}
 
 	if spec.Type == planetscalev2.ExternalMasterPoolType {
