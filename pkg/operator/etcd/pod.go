@@ -85,6 +85,7 @@ type Spec struct {
 	Annotations       map[string]string
 	ExtraLabels       map[string]string
 	AdvertisePeerURLs []string
+	Tolerations       []corev1.Toleration
 }
 
 // NewPod creates a new etcd Pod.
@@ -282,6 +283,10 @@ func UpdatePod(obj *corev1.Pod, spec *Spec) {
 				},
 			})
 		}
+	}
+
+	if spec.Tolerations != nil {
+		obj.Spec.Tolerations = spec.Tolerations
 	}
 
 	// Use the PriorityClass we defined for etcd in deploy/priority.yaml.
