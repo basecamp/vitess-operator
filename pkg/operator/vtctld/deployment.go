@@ -69,6 +69,7 @@ type Spec struct {
 	SidecarContainers []corev1.Container
 	Annotations       map[string]string
 	ExtraLabels       map[string]string
+	Tolerations       []corev1.Toleration
 }
 
 // NewDeployment creates a new Deployment object for vtctld.
@@ -208,6 +209,10 @@ func UpdateDeployment(obj *appsv1.Deployment, spec *Spec) {
 		}
 	} else {
 		obj.Spec.Template.Spec.Affinity = nil
+	}
+
+	if spec.Tolerations != nil {
+		obj.Spec.Template.Spec.Tolerations = spec.Tolerations
 	}
 }
 
